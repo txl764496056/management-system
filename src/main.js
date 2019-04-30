@@ -65,7 +65,7 @@ router.beforeEach((to, from, next) => {
             next(store.state.login_redirect);
           }
         })
-        .catch(error => {
+        .catch(() => {
           accountApi.loginOut(); //退出登录（清除cookie即可）
           if (to.path != "/login") {
             store.commit("LoginRediret", to.path);
