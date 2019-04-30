@@ -1,23 +1,26 @@
 <template>
   <div>
-    <div class="login">
-      <span>txl--登陆到后台</span>
-      <div>
-        <input
-          type="text"
-          v-model="username"
-          @keyup.enter="login"
-          placeholder="输入用户名"
-        />
-        <input
-          type="password"
-          v-model="password"
-          @keyup.enter="login"
-          placeholder="输入登陆密码"
-        />
-        <button @click="login">登录</button>
+    <form action="post" @submit="prevent">
+      <div class="login">
+        <span>txl--登陆到后台</span>
+        <div>
+          <input
+            type="text"
+            v-model="username"
+            @keyup.enter="login"
+            placeholder="输入用户名"
+          />
+          <input
+            type="password"
+            v-model="password"
+            @keyup.enter="login"
+            placeholder="输入登陆密码"
+            autocomplete="password"
+          />
+          <button @click="login">登录</button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -50,6 +53,9 @@ export default {
         .catch(error => {
           this.$notify.danger({ content: error.msg });
         });
+    },
+    prevent(evt) {
+      evt.preventDefault();
     }
   }
 };

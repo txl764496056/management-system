@@ -192,4 +192,11 @@ export default {
     margin-right: 0;
   }
 }
+.content-none {
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+  letter-spacing: 1px;
+  margin: 50px 0;
+}
 </style>
