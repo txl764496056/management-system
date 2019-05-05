@@ -8,8 +8,8 @@ import router from "../util/router";
 import store from "../util/store";
 
 let axios_1 = axios.create({
-  // baseURL:LOCAL_API.BASE_API1, //json-server模拟
-  baseURL: LOCAL_API.BASE_API2, //真实服务器
+  baseURL: LOCAL_API.BASE_API1, //json-server模拟
+  // baseURL: LOCAL_API.BASE_API2, //真实服务器
   headers: { "X-Data-Type": "json" },
   responseType: "json"
 });
@@ -38,6 +38,7 @@ axios_1.interceptors.response.use(
     return response.data.result;
   },
   function(error) {
+    console.log(error);
     // 状态403表示用户登录信息已过期
     if (error.response.data.code === 403) {
       Cookie.remove(auth.cookie_key);
@@ -45,7 +46,7 @@ axios_1.interceptors.response.use(
       store.commit("LoginRediret", path);
       router.push("/login");
       // 过期提示
-      // router.app.$notify.danger({content:error.response.data.msg});
+      router.app.$notify.danger({ content: error.response.data.msg });
     }
     return Promise.reject(error.response.data);
   }

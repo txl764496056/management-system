@@ -70,7 +70,7 @@ export default {
       list: [],
       total: 0,
       queryData: {
-        keyword: (queryData.keyword || "") + "",
+        keyword: (queryData.keyword || "") + "", //关键字测试 秀
         status: parseInt(queryData.status || 0),
         page: parseInt(queryData.page || 1)
       }
@@ -86,6 +86,7 @@ export default {
         .then(res => {
           this.list = res.list;
           this.total = res.total;
+          console.log(res);
         })
         .catch(err => {
           console.log(err, "企业账号列表");
