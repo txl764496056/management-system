@@ -5,7 +5,7 @@
       <div>
         <a><i class="fa fa-user-circle"></i> {{ admin.username }}</a>
         <a><i class="fa fa-key"></i> 修改密码</a>
-        <a><i class="fa fa-sign-out"></i> 退出登录</a>
+        <a @click="loginOut"><i class="fa fa-sign-out"></i> 退出登录</a>
       </div>
     </header>
     <nav>
@@ -66,6 +66,11 @@ export default {
         this.$router.push(this.history.path[this.current.index - 1]);
       }
       this.$store.commit("delHistory", name);
+    },
+    loginOut() {
+      this.accountApi.loginOut();
+      this.$store.commit("LoginRediret", this.$route.path);
+      this.$router.push("/login");
     }
   }
 };
@@ -119,15 +124,15 @@ export default {
     //         color: #fff;
     //     }
     // }
-    // a {
-    //     display: inline-block;
-    //     margin: 0 10px;
-    //     cursor: pointer;
-    //     color: #aaa;
-    //     &:hover {
-    //         color: #fff;
-    //     }
-    // }
+    a {
+      display: inline-block;
+      margin: 0 10px;
+      cursor: pointer;
+      color: #aaa;
+      &:hover {
+        color: #fff;
+      }
+    }
   }
   & > nav {
     right: auto;

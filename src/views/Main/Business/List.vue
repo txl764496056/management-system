@@ -36,8 +36,11 @@
           <pagination
             :total="total"
             :page-size="size"
-            :size-options="[15, 30, 50]"
-            layout="total,pager"
+            :current="queryData.page"
+            :size-options="sizeOption"
+            layout="total,pager,sizer"
+            :change="reloadPage"
+            :page-size-change="reloadPageSize"
           ></pagination>
         </div>
       </table-toolbar>
@@ -69,6 +72,8 @@ export default {
       size: 20,
       list: [],
       total: 0,
+      sizeOption: [15, 30, 50],
+      current: 1,
       queryData: {
         keyword: (queryData.keyword || "") + "", //关键字测试 秀
         status: parseInt(queryData.status || 0),
@@ -86,11 +91,18 @@ export default {
         .then(res => {
           this.list = res.list;
           this.total = res.total;
-          console.log(res);
         })
         .catch(err => {
           console.log(err, "企业账号列表");
         });
+    },
+    reloadPageSize(cur, size) {
+      this.size = Number.parseInt(size);
+      this.listData();
+    },
+    reloadPage(page) {
+      this.queryData.page = page;
+      this.listData();
     }
   }
 };
